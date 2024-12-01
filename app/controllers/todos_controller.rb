@@ -2,7 +2,7 @@
 
 class TodosController < ApplicationController
   def index
-    @todos = Todo.order(:due_date)
+    @pagy, @todos = pagy(Todo.order(:due_date), limit: 10)
     render :index
   end
 end

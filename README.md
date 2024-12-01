@@ -1,25 +1,42 @@
-# README
+# Pagination with Pagy
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This demonstration shows how to use the [Pagy](https://github.com/ddnexus/pagy#readme) gem to add pagination to the todos index page from the [Index Pages Demo](https://rails-demos-n-deets-2023.herokuapp.com/demos/index-pages).
 
-Things you may want to cover:
+## Video Demo (16 minutes)
 
-* Ruby version
+[![Screenshot of todos index page with pagination buttons at the bottom of the page](todos_index_with_pagination.png)](https://youtu.be/jRvoGUCMzhM?si=XGGdh_7N1JbPBrEn)
 
-* System dependencies
+- <https://youtu.be/jRvoGUCMzhM?si=XGGdh_7N1JbPBrEn>
 
-* Configuration
+## Add 1000 Todo Seeds
 
-* Database creation
+- Add Faker to project.
+  - See <https://github.com/faker-ruby/faker#getting-started>
+  - Add `gem 'faker'` to `Gemfile`
+  - Add `require 'faker'` to `db/seeds.rb`
+- Update `db/seeds.rb` to generate 1000 `Todo` objects
+  - `1000.times do ...`
+  - `Faker::Lorem.sentence`
+  - `Faker::Lorem.paragraph,`
+  - `Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)`
 
-* Database initialization
+## Add Pagination to Todo Index (10 per page)
 
-* How to run the test suite
+- Add Pagy to project.
+  - See <https://ddnexus.github.io/pagy/quick-start/>
+  - Add `gem 'pagy', '~> 9.3'` to `Gemfile`
+  - Save <https://ddnexus.github.io/pagy/gem/config/pagy.rb> to `config/initializers`
+    - Uncomment `require 'pagy/extras/bootstrap'`
+  - Add `include Pagy::Backend` to `ApplicationController`
+  - Add `include Pagy::Frontend` to `ApplicationHelper`
+- Update how `Todo` objects are retrieved in `TodosController.index`
+  - `@pagy, @todos = pagy(Todo.order(:due_date), limit: 10)`
+- Add the pagination buttons to `app/views/todos/index.html.erb`
+  - `<%== pagy_bootstrap_nav(@pagy, classes: 'pagination mx-auto') %>`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Further Reading
 
-* Deployment instructions
-
-* ...
-# rails-demos-n-deets-2023-apps
+- [Faker Homepage](https://github.com/faker-ruby/faker#readme)
+- [Faker Documentation](https://www.rubydoc.info/gems/faker/)
+- [Pagy Homepage](https://github.com/ddnexus/pagy#readme)
+- [Pagy Documentation](https://ddnexus.github.io/pagy/)

@@ -101,3 +101,9 @@ gem 'rubocop-rails', require: false, group: %i[development test]
 # Lint your ERB or HTML files
 gem 'erb_lint', require: false, group: %i[development test]
 gem 'htmlbeautifier', require: false, group: %i[development test]
+
+# Create fake seed data
+gem 'faker'
+
+# Add pagination
+gem 'pagy', '~> 9.3' # omit patch digit
