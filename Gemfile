@@ -87,3 +87,17 @@ gem 'bootswatch', github: 'thomaspark/bootswatch', tag: 'v5.2.3'
 
 # Bootstrap-styled rails form helpers
 gem 'bootstrap_form', '~> 5.2.3'
+
+# Ruby static code analyzer (a.k.a. linter) and code formatter
+gem 'rubocop', require: false, group: %i[development test]
+
+# Rubocop extensions
+gem 'rubocop-capybara', require: false, group: %i[development test]
+gem 'rubocop-factory_bot', require: false, group: %i[development test]
+gem 'rubocop-rails', require: false, group: %i[development test]
+# gem 'rubocop-rspec', require: false, group: %i[development test]
+# gem 'rubocop-rspec_rails', require: false, group: %i[development test]
+
+# Lint your ERB or HTML files
+gem 'erb_lint', require: false, group: %i[development test]
+gem 'htmlbeautifier', require: false, group: %i[development test]
