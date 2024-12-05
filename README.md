@@ -10,31 +10,63 @@ If you would like to follow along with the video, clone this repo and switch to 
 
 - <https://youtu.be/jRvoGUCMzhM?si=XGGdh_7N1JbPBrEn>
 
-## Add 1000 Todo Seeds
+## Steps to Generate 1000 Todo Seeds
 
-- Add Faker to project.
-  - See <https://github.com/faker-ruby/faker#getting-started>
-  - Add `gem 'faker'` to `Gemfile`
-  - Add `require 'faker'` to `db/seeds.rb`
-- Update `db/seeds.rb` to generate 1000 `Todo` objects
-  - `1000.times do ...`
-  - `Faker::Lorem.sentence`
-  - `Faker::Lorem.paragraph,`
-  - `Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)`
+- **Step 1:** In the `Gemfile`, insert `gem 'faker'` at the bottom. Then `bundle install`.
 
-## Add Pagination to Todo Index (10 per page)
+- **Step 2:** In `db/seeds.rb`, insert `require 'faker'` at the top of the file.
 
-- Add Pagy to project.
-  - See <https://ddnexus.github.io/pagy/quick-start/>
-  - Add `gem 'pagy', '~> 9.3'` to `Gemfile`
-  - Save <https://ddnexus.github.io/pagy/gem/config/pagy.rb> to `config/initializers`
-    - Uncomment `require 'pagy/extras/bootstrap'`
-  - Add `include Pagy::Backend` to `ApplicationController`
-  - Add `include Pagy::Frontend` to `ApplicationHelper`
-- Update how `Todo` objects are retrieved in `TodosController.index`
-  - `@pagy, @todos = pagy(Todo.order(:due_date), limit: 10)`
-- Add the pagination buttons to `app/views/todos/index.html.erb`
-  - `<%== pagy_bootstrap_nav(@pagy, classes: 'pagination mx-auto') %>`
+- **Step 3:** In `db/seeds.rb`, insert a loop that creates 1000 `Todo` objects and that uses Faker to initialize each object with random attribute values.
+
+```ruby
+1000.times do
+  Todo.create!(
+    title:       Faker::Lorem.sentence,
+    description: Faker::Lorem.paragraph,
+    due_date:    Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)
+  )
+end
+```
+
+- **Step 4:** Run `rails db:migrate:reset && rails db:seed` to reset and reseed the database.
+
+## Steps to Install and Set Up Pagy
+
+- **Step 1:** In the `Gemfile`, insert `gem 'pagy', '~> 9.3'` at the bottom. Then `bundle install`.
+
+- **Step 2:** Download `pagy.rb` from <https://ddnexus.github.io/pagy/gem/config/pagy.rb> and save the file in `config/initializers`.
+
+- **Step 3:** In `config/initializers/pagy.rb`, uncomment the line `require 'pagy/extras/bootstrap'`.
+
+- **Step 4:** In `app/controllers/application_controller.rb`, include the `Pagy::Backend` module in the `ApplicationController` class.
+
+```ruby
+class ApplicationController < ActionController::Base
+  include Pagy::Backend
+end
+```
+
+- **Step 5:** In `app/helpers/application_helper.rb`, include the `Pagy::Frontend` module in the `ApplicationHelper` module.
+
+```ruby
+module ApplicationHelper
+  include Pagy::Frontend
+end
+```
+
+## Steps to Add Pagination to the Todos Index Page (10 per Page)
+
+- **Step 1:** In `app/controllers/todos_controller.rb`, in the `index` action, update the statement that retrieves the `Todo` objects to use Pagy.
+
+```ruby
+@pagy, @todos = pagy(Todo.order(:due_date), limit: 10)
+```
+
+- **Step 2:** In `app/views/todos/index.html.erb`, insert the page navigation buttons after the table.
+
+```erb
+<%== pagy_bootstrap_nav(@pagy, classes: 'pagination mx-auto') if @pagy.pages > 1 %>
+```
 
 ## Further Reading
 
