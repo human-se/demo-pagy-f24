@@ -1,4 +1,4 @@
-# Pagination with Pagy
+# Pagination with Pagy Demo
 
 This demonstration shows how to use the [Pagy](https://github.com/ddnexus/pagy#readme) gem to add pagination to the todos index page from the [Index Pages Demo](https://rails-demos-n-deets-2023.herokuapp.com/demos/index-pages).
 
