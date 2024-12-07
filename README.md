@@ -8,7 +8,7 @@ If you would like to follow along with the video, clone this repo and switch to 
 
 [![Screenshot of todos index page with pagination buttons at the bottom of the page](todos_index_with_pagination.png)](https://youtu.be/jRvoGUCMzhM?si=XGGdh_7N1JbPBrEn)
 
-- <https://youtu.be/jRvoGUCMzhM?si=XGGdh_7N1JbPBrEn>
+### [🎦 Watch the Video Demo](https://youtu.be/jRvoGUCMzhM?si=XGGdh_7N1JbPBrEn)
 
 ## Steps to Generate 1000 Todo Seeds
 
