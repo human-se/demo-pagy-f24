@@ -12,11 +12,17 @@ If you would like to follow along with the video, clone this repo and switch to 
 
 ## Steps to Generate 1000 Todo Seeds
 
-- **Step 1:** In the `Gemfile`, insert `gem 'faker'` at the bottom. Then `bundle install`.
+### ① Install Faker Gem
 
-- **Step 2:** In `db/seeds.rb`, insert `require 'faker'` at the top of the file.
+In the `Gemfile`, insert `gem 'faker'` at the bottom. Then `bundle install`.
 
-- **Step 3:** In `db/seeds.rb`, insert a loop that creates 1000 `Todo` objects and that uses Faker to initialize each object with random attribute values.
+### ② Load Faker Gem in Seeds Script
+
+In `db/seeds.rb`, insert `require 'faker'` at the top of the file.
+
+### ③ Create 1000 Random Todos in Seeds Script
+
+In `db/seeds.rb`, insert a loop that creates 1000 `Todo` objects and that uses Faker to initialize each object with random attribute values.
 
 ```ruby
 1000.times do
@@ -28,17 +34,27 @@ If you would like to follow along with the video, clone this repo and switch to 
 end
 ```
 
-- **Step 4:** Run `rails db:migrate:reset && rails db:seed` to reset and reseed the database.
+### ④ Reset and Reseed the DB
+
+Run `rails db:migrate:reset && rails db:seed` to reset and reseed the database.
 
 ## Steps to Install and Set Up Pagy
 
-- **Step 1:** In the `Gemfile`, insert `gem 'pagy', '~> 9.3'` at the bottom. Then `bundle install`.
+### ① Install Pagy Gem
 
-- **Step 2:** Download `pagy.rb` from <https://ddnexus.github.io/pagy/gem/config/pagy.rb> and save the file in `config/initializers`.
+In the `Gemfile`, insert `gem 'pagy', '~> 9.3'` at the bottom. Then `bundle install`.
 
-- **Step 3:** In `config/initializers/pagy.rb`, uncomment the line `require 'pagy/extras/bootstrap'`.
+### ② Download Pagy Config File
 
-- **Step 4:** In `app/controllers/application_controller.rb`, include the `Pagy::Backend` module in the `ApplicationController` class.
+Download `pagy.rb` from <https://ddnexus.github.io/pagy/gem/config/pagy.rb> and save the file in `config/initializers`.
+
+### ③ Load Pagy Bootstrap Extras
+
+In `config/initializers/pagy.rb`, uncomment the line `require 'pagy/extras/bootstrap'`.
+
+### ④ Include Pagy Backend Module in Controllers
+
+In `app/controllers/application_controller.rb`, include the `Pagy::Backend` module in the `ApplicationController` class.
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -46,7 +62,9 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-- **Step 5:** In `app/helpers/application_helper.rb`, include the `Pagy::Frontend` module in the `ApplicationHelper` module.
+### ⑤ Include Pagy Frontend Module in Views
+
+In `app/helpers/application_helper.rb`, include the `Pagy::Frontend` module in the `ApplicationHelper` module.
 
 ```ruby
 module ApplicationHelper
@@ -56,11 +74,15 @@ end
 
 ## Steps to Add Pagination to the Todos Index Page (10 per Page)
 
-- **Step 1:** In `app/controllers/todos_controller.rb`, in the `index` action, update the statement that retrieves the `Todo` objects to use Pagy.
+### ① Use Pagy in Index Controller Action
+
+In `app/controllers/todos_controller.rb`, in the `index` action, update the statement that retrieves the `Todo` objects to use Pagy.
 
 ```ruby
 @pagy, @todos = pagy(Todo.order(:due_date), limit: 10)
 ```
+
+### ② Add Page Nav Buttons to Index View
 
 - **Step 2:** In `app/views/todos/index.html.erb`, insert the page navigation buttons after the table.
 
