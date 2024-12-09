@@ -74,7 +74,7 @@ end
 
 ## Steps to Add Pagination to the Todos Index Page (10 per Page)
 
-### ① Use Pagy in Index Controller Action
+### ① Paginate Retrieved Model Objects in Index Controller Action
 
 In `app/controllers/todos_controller.rb`, in the `index` action, update the statement that retrieves the `Todo` objects to use Pagy.
 
@@ -84,7 +84,7 @@ In `app/controllers/todos_controller.rb`, in the `index` action, update the stat
 
 ### ② Add Page Nav Buttons to Index View
 
-- **Step 2:** In `app/views/todos/index.html.erb`, insert the page navigation buttons after the table.
+In `app/views/todos/index.html.erb`, insert the page navigation buttons after the table.
 
 ```erb
 <%== pagy_bootstrap_nav(@pagy, classes: 'pagination mx-auto') if @pagy.pages > 1 %>
